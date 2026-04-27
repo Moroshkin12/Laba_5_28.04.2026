@@ -1,0 +1,44 @@
+#Slov9. Напишите программу, которая принимает на вход строку, и отслеживает, сколько раз 
+# каждый символ уже встречался. Количество повторов добавляется к символам с помощью постфикса
+#формата _n
+
+def process_string(s):
+    """Обрабатывает строку и возвращает результат с постфиксами _n"""
+    counter = {}
+    result = ""
+
+    for char in s:
+        if char not in counter:
+            result += char
+            counter[char] = 1
+        else:
+            result += char + "_" + str(counter[char])
+            counter[char] += 1
+
+    return result
+
+
+print("=" * 50)
+print("Программа подсчета повторений символов")
+print("=" * 50)
+
+while True:
+    user_input = input("Введите строку: ")
+
+    user_input = user_input.replace(" ", "")
+
+    # Проверяем, не пустая ли строка после удаления пробелов
+    if user_input == "":
+        print("Ошибка: введите что-нибудь (пробелы не считаются)!")
+        continue
+
+    break
+
+result = process_string(user_input)
+
+print("\n" + "=" * 50)
+print("Строка: ", user_input)
+print("Длина: ",len(user_input))
+print("Результат:", result)
+print("Длина результата:" ,len(result) ,"символов")
+print("=" * 50)

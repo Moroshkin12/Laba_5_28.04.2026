@@ -1,0 +1,116 @@
+#darray17 Проверить, является ли матрица A размером n x n диагональной (все элементы, кроме
+#главной диагонали, нули и матрица при этом не единичная); единичной (все элементы нули, на
+#главной диагонали только единицы); или нулевой (все элементы нули). Формат ответа: 1 - диагональная, 2 - единичная, 3 - нулевая
+
+def input_valid():
+    """Полный ввод с валидацией"""
+
+    while True:
+        try:
+            n = int(input("Введите размер матрицы n (1-10): "))
+            if 1 <= n <= 10:
+                break
+            print("Ошибка: размер должен быть от 1 до 10!")
+        except ValueError:
+            print(" Ошибка: введите целое число!")
+
+    # Ввод матрицы
+    print("\nВведите матрицу(элементы через пробел):")
+    matrix = []
+
+    for i in range(n):
+        print("\nВведите строку: ")
+        while True:
+            user_input = input("> ").strip()
+
+
+            if not user_input:
+                print(" Ошибка: строка не может быть пустой!")
+                continue
+
+
+            elements = user_input.split()
+
+
+            if len(elements) != n:
+                print(" Ошибка: нужно", n, "чисел, введено ",len(elements))
+                continue
+
+
+            valid = True
+            row = []
+            for elem in elements:
+                try:
+                    row.append(int(elem))
+                except ValueError:
+                    print("Ошибка:",elem, "не является целым числом!")
+                    valid = False
+                    break
+
+            if valid:
+                matrix.append(row)
+                break
+
+    return matrix
+
+
+def print_matrix(m):
+    """Вывод матрицы"""
+    print("\n" + "=" * 40)
+    print("Матрица:")
+    for row in m:
+        print("   ", end="")
+        for x in row:
+            print(x, end="  ")  # просто число и два пробела
+        print()
+    print("=" * 40)
+
+def check_matrix(m):
+    """Проверка типа"""
+    n = len(m)
+
+    is_zero = True
+    is_identity = True
+    is_diagonal = True
+
+    for i in range(n):
+        for j in range(n):
+            if i == j:
+                if m[i][j] != 0:
+                    is_zero = False
+                if m[i][j] != 1:
+                    is_identity = False
+            else:
+                if m[i][j] != 0:
+                    is_zero = False
+                    is_identity = False
+                    is_diagonal = False
+
+    if is_zero:
+        return 3
+    elif is_identity:
+        return 2
+    elif is_diagonal:
+        return 1
+    return 0
+
+print("=" * 50)
+print("Определение типа матрицы")
+print("1 - диагональная, 2 - единичная, 3 - нулевая")
+print("=" * 50)
+
+matrix = input_valid()
+
+print_matrix(matrix)
+
+result = check_matrix(matrix)
+if result == 1:
+    tekst = "диагональная матрица"
+elif result == 2:
+    tekst = "единичная матрица"
+elif result == 3:
+    tekst = "нулевая матрица"
+else:
+    tekst = "неопределенный тип"
+
+print("\nРезультат:", result, "(" + tekst + ")")

@@ -1,0 +1,70 @@
+# В матрице A размерности n x n поменять местами элементы на главной и побочной диагоналях,
+# оставив каждый элемент в той же строке, что он и находился. В решении задачи
+# не допускается использовать вложенные циклы и оператор ветвления.
+
+def get_valid():
+    """Ввод и проверка матрицы"""
+
+    while True:
+        try:
+            n = int(input("Введите размер матрицы n (1-10): "))
+            if 1 <= n <= 10:
+                break
+            print("Ошибка: n должно быть от 1 до 10")
+        except ValueError:
+            print("Ошибка: введите целое число")
+
+    # Ввод матрицы
+    print("\nВведите матрицу",n ,"x",n,"(через пробел): ")
+    matrix = []
+
+    for i in range(n):
+        while True:
+            row = str(input(("Введите числа через пробел : "))).strip()
+
+
+            if not row:
+                print("Ошибка: строка не может быть пустой")
+                continue
+
+
+            parts = row.split()
+
+
+            if len(parts) != n:
+                print("Ошибка: нужно", n, "чисел, введено",len(parts))
+                continue
+
+
+            try:
+                row_numbers = [int(x) for x in parts]
+                matrix.append(row_numbers)
+                break
+            except ValueError:
+                print("Ошибка: введите только целые числа")
+                continue
+
+    return matrix
+
+
+def print_matrix(matrix):
+    """Вывод матрицы без скобок"""
+    for row in matrix:
+        print(*row)
+
+print("=" * 50)
+print("Обмен главной и побочной диагоналей")
+print("=" * 50)
+
+matrix = get_valid()
+
+print("\nИсходная матрица:")
+print_matrix(matrix)
+
+n = len(matrix)
+for i in range(n):
+    matrix[i][i], matrix[i][n - 1 - i] = matrix[i][n - 1 - i], matrix[i][i]
+
+print("\nРезультат (диагонали обменены):")
+print_matrix(matrix)
+

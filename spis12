@@ -1,0 +1,46 @@
+#Spis12. Дан список чисел. В списке все элементы различны. Поменяйте местами минимальный и
+#максимальный элемент этого списка.
+
+def swap_min_max(lst):
+    """Меняет местами минимальный и максимальный элементы списка."""
+
+    min_index = lst.index(min(lst))
+    max_index = lst.index(max(lst))
+
+    lst[min_index], lst[max_index] = lst[max_index], lst[min_index]
+    return lst
+
+
+
+def get_valid ():
+    while True:
+        try:
+            user_input = input("Введите числа через пробел: ")
+
+            if not user_input:
+                print("Ошибка: строка не может быть пустой")
+                continue
+
+
+            numbers = [int(x) for x in user_input.split()]
+
+            if len(numbers) < 2:
+                print("Ошибка: введите хотя бы 2 числа")
+                continue
+
+            if len(numbers) != len(set(numbers)):
+                print("Все числа должны быть различны")
+                continue
+
+            return numbers
+
+        except ValueError:
+            print("Ошибка: введите только целые числа через пробел")
+
+
+list_1 = get_valid()
+print("Исходный список: ", list_1)
+list_2 = swap_min_max(list_1)
+print("Результат: ", list_2)
+
+# 1 2 3, 2.34 3.44, фф ыff, -100 100, 100 8 100,

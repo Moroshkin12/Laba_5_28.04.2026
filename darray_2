@@ -14,7 +14,7 @@ def get_valid():
         except ValueError:
             print("Ошибка: введите целое число")
 
-    # Ввод матрицы
+    
     print("\nВведите матрицу",n ,"x",n,"(через пробел): ")
     matrix = []
 
